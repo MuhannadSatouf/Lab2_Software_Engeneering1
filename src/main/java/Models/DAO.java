@@ -11,6 +11,8 @@ public class DAO {
     private String name;
     private String password;
     private int account_number;
+    private Account account;
+    private double account_balance;
 
 
 
@@ -21,7 +23,7 @@ public class DAO {
                 resultSet = retrieveSet(query, sSN);
                 if (resultSet != null) {
                     if (resultSet.first()) {
-                        return user = createObjects(resultSet);
+                        return user = createUserObject(resultSet);
                     }
                 } else {
                     System.out.println("Empty resultSet");
@@ -53,7 +55,7 @@ public class DAO {
         return temp;
     }
 
-    private User createObjects(ResultSet resultSet) throws Exception {
+    private User createUserObject(ResultSet resultSet) throws Exception {
         sSN = resultSet.getString("person_number");
         name = resultSet.getString("name");
         account_number = resultSet.getInt("account_number");
@@ -79,5 +81,74 @@ public class DAO {
             ex.printStackTrace();
         }
         return resultSet;
+    }
+
+    public Account getAccount() {
+        Account temp = null;
+        String query = "SELECT * FROM Account where id = 1;";
+        try {
+            temp = retrieveAccount(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return temp;
+    }
+
+    private Account retrieveAccount(String query) {
+        account = null;
+        try {
+            if (!Database.dbConnection.isClosed()) {
+                resultSet = retrieveSet(query);
+                if (resultSet != null) {
+                    if (resultSet.first()) {
+                        return account = createAccountObject(resultSet);
+                    }
+                } else {
+                    System.out.println("Empty resultSet");
+                    return account;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while working with ResultSet!");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return account;
+        }
+    }
+
+    private Account createAccountObject(ResultSet resultSet) throws Exception {
+        account_balance = resultSet.getDouble("account_balance");
+        return account;
+    }
+
+    public void updateBalance(Account account) {
+        try {
+            if (!Database.dbConnection.isClosed()) {
+                if (account != null) {
+                    account_balance = account.getAccount_balance();
+                    String query = "UPDATE `Account` SET `account_balance` = ? WHERE (`id` = 1);";
+                    PreparedStatement prepStmt = Database.getConnection().prepareStatement(query);
+
+                    prepStmt.setDouble(1, account_balance);
+                    prepStmt.executeUpdate();
+                    prepStmt.close();
+
+                } else {
+                    throw new NullPointerException("The user object is null");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while working with statement!");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
