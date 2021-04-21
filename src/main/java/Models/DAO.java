@@ -40,11 +40,11 @@ public class DAO {
             return user;
         }
     }
-    public User getUser(String sSN) {
+    public User getUser(String person_number) {
         User temp = null;
-        String query = "SELECT * FROM User where ssn = ?;";
+        String query = "SELECT * FROM User where person_number = ?;";
         try {
-            temp = retrieveUser(query, sSN);
+            temp = retrieveUser(query, person_number);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
