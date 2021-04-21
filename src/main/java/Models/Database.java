@@ -7,16 +7,16 @@ import java.sql.Statement;
 import java.sql.*;
 
 public class Database {
-    public static String url= "jdbc:mysql://ro03.beginit.se:23306/project01?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC";
+    public static String url = "jdbc:mysql://ro03.beginit.se:23306/project01?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC";
     public static String username = "stud";
-    public static String password="studentRemote!";
+    public static String password = "studentRemote!";
 
     private static Database myDBConnection;
     public static Connection dbConnection;
     private Statement statement;
     private ResultSet resultSet;
 
-    private Database() {
+    public Database() {
 
     }
 
