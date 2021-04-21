@@ -79,22 +79,22 @@ public class DAO {
         return resultSet;
     }
 
-    public Account getAccount() {
+    public Account getAccount(int account_number) {
         Account temp = null;
-        String query = "SELECT * FROM Account where id = 1;";
+        String query = "SELECT * FROM Account where id = ?;";
         try {
-            temp = retrieveAccount(query);
+            temp = retrieveAccount(query, account_number);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return temp;
     }
 
-    private Account retrieveAccount(String query) {
+    private Account retrieveAccount(String query, int account_number) {
         account = null;
         try {
             if (!Database.dbConnection.isClosed()) {
-                resultSet = retrieveSet(query);
+                resultSet = retrieveSet(query, String.valueOf(account_number));
                 if (resultSet != null) {
                     if (resultSet.first()) {
                         return account = createAccountObject(resultSet);
@@ -121,8 +121,7 @@ public class DAO {
     }
 
     private Account createAccountObject(ResultSet resultSet) throws Exception {
-        account_balance = resultSet.getDouble("account_balance");
-        account.setAccount_balance(account_balance);
+        account.setAccount_balance(resultSet.getDouble("account_balance"));
         return account;
     }
 
@@ -131,10 +130,10 @@ public class DAO {
             if (!Database.dbConnection.isClosed()) {
                 if (account != null) {
                     account_balance = account.getAccount_balance();
-                    String query = "UPDATE `Account` SET `account_balance` = ? WHERE (`id` = 1);";
+                    String query = "UPDATE `Account` SET `account_balance` = ? WHERE (`id` = ?);";
                     PreparedStatement prepStmt = Database.getConnection().prepareStatement(query);
-
                     prepStmt.setDouble(1, account_balance);
+                    prepStmt.setInt(2, account.getAccount_number());
                     prepStmt.executeUpdate();
                     prepStmt.close();
 
@@ -154,9 +153,10 @@ public class DAO {
         try {
             if (!Database.dbConnection.isClosed()) {
                 if (transaction.getAmount() != 0) {
-                    String queryString = "INSERT INTO `Transaction` (`id`, `amount`) VALUES (?, ?);";
+                    String queryString = "INSERT INTO `Transaction` (`id`, `amount`, 'account_number') VALUES (?, ?, ?);";
                     PreparedStatement prepStmt = Database.getConnection().prepareStatement(queryString);
                     prepStmt.setDouble(2, transaction.getAmount());
+                    prepStmt.setInt(3, transaction.getAccount().getAccount_number());
                     prepStmt.executeUpdate();
                     prepStmt.close();
                     updateBalance(transaction.getAccount());   // pay attention to this method call - make sure not to call it twice

@@ -11,8 +11,8 @@ public class DBMethods {
   //      dao.updateBalance(account);
   //  }   this is executed in  setTransaction()
 
-    public Account getAccountBalance(){
-        return dao.getAccount();
+    public Account getAccountBalance(int accountNumber){
+        return dao.getAccount(accountNumber);
     }
 
     public void addTransaction(Transaction transaction){
