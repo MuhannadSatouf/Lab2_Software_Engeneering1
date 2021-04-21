@@ -18,8 +18,8 @@
    <children>
       <AnchorPane prefHeight="209.0" prefWidth="314.0">
          <children>
-            <Button fx:id="depositButton" layoutX="33.0" layoutY="139.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Diposit 100 kr" />
-            <Button fx:id="withdrawButton" layoutX="179.0" layoutY="139.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Withdraw 100 kr" />
+            <Button fx:id="depositButton" layoutX="33.0" layoutY="139.0" mnemonicParsing="false" onAction="#depositButton" prefHeight="33.0" prefWidth="111.0" text="Diposit 100 kr" />
+            <Button fx:id="withdrawButton" layoutX="179.0" layoutY="139.0" mnemonicParsing="false" onAction="#withdrawButton" prefHeight="33.0" prefWidth="111.0" text="Withdraw 100 kr" />
             <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number" wrappingWidth="111.33333333333337" />
             <Text layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance" wrappingWidth="99.47008895874023" />
             <TextField editable="false" layoutX="133.0" layoutY="70.0" promptText="Balance" />
