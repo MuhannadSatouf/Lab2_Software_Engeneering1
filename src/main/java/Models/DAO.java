@@ -7,10 +7,6 @@ import java.sql.SQLException;
 public class DAO {
     private ResultSet resultSet = null;
     private User user;
-    private String sSN;
-    private String name;
-    private String password;
-    private int account_number;
     private Account account;
     private double account_balance;
 
@@ -56,10 +52,10 @@ public class DAO {
     }
 
     private User createUserObject(ResultSet resultSet) throws Exception {
-        sSN = resultSet.getString("person_number");
-        name = resultSet.getString("name");
-        account_number = resultSet.getInt("account_number");
-        password = resultSet.getString("password");
+        String sSN = resultSet.getString("person_number");
+        String name = resultSet.getString("name");
+        int account_number = resultSet.getInt("account_number");
+        String password = resultSet.getString("password");
         user = new User(sSN, name, account_number);
         user.setPassword(password);
         return user;
@@ -115,6 +111,7 @@ public class DAO {
             ex.printStackTrace();
         } finally {
             try {
+                assert resultSet != null;
                 resultSet.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -125,10 +122,11 @@ public class DAO {
 
     private Account createAccountObject(ResultSet resultSet) throws Exception {
         account_balance = resultSet.getDouble("account_balance");
+        account.setAccount_balance(account_balance);
         return account;
     }
 
-    public void updateBalance(Account account) {
+    private void updateBalance(Account account) {
         try {
             if (!Database.dbConnection.isClosed()) {
                 if (account != null) {
@@ -142,6 +140,26 @@ public class DAO {
 
                 } else {
                     throw new NullPointerException("The user object is null");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while working with statement!");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setTransaction(Transaction transaction) {
+        try {
+            if (!Database.dbConnection.isClosed()) {
+                if (transaction.getAmount() != 0) {
+                    String queryString = "INSERT INTO `Transaction` (`id`, `amount`) VALUES (?, ?);";
+                    PreparedStatement prepStmt = Database.getConnection().prepareStatement(queryString);
+                    prepStmt.setDouble(2, transaction.getAmount());
+                    prepStmt.executeUpdate();
+                    prepStmt.close();
+                    updateBalance(transaction.getAccount());   // pay attention to this method call - make sure not to call it twice
                 }
             }
         } catch (SQLException ex) {

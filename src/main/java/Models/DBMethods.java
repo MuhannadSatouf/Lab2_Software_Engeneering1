@@ -7,13 +7,15 @@ public class DBMethods {
        return dao.getUser(person_number);
     }
 
-    public void updateAccountBalance(Account account){
-        dao.updateBalance(account);
-    }
+   // public void updateAccountBalance(Account account){
+  //      dao.updateBalance(account);
+  //  }   this is executed in  setTransaction()
 
-    public Account getAccount(){
+    public Account getAccountBalance(){
         return dao.getAccount();
     }
 
-
+    public void addTransaction(Transaction transaction){
+        dao.setTransaction(transaction);
+    }
 }
