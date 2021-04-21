@@ -1,3 +1,5 @@
+
+import Models.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,12 +9,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/logIn.fxml"));
         primaryStage.setTitle("ATM");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {
