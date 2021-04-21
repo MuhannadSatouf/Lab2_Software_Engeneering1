@@ -1,5 +1,7 @@
 package Models;
 
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,8 +29,10 @@ public class Database {
                 dbConnection = DriverManager.getConnection(url, username, password);
                 System.out.println("Connection to DB established");
             } catch (SQLException e) {
-                System.out.println("Failed to connect to DB");
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Failed to connect to DB");
+                alert.showAndWait();
+                e.getSuppressed();
             }
         }
 
