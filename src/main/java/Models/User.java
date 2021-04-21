@@ -5,7 +5,14 @@ public class User {
     private String name;
     private String password;
     private int account_number;
-    private double balance;
+ //   private double balance;
+
+    public User(String person_number, String name, int account_number){
+        setPerson_number(person_number);
+        setName(name);
+        setAccount_number(account_number);
+
+    }
 
     public String getPerson_number() {
         return person_number;
@@ -39,11 +46,11 @@ public class User {
         this.account_number = account_number;
     }
 
-    public double getBalance() {
-        return balance;
-    }
+  //  public double getBalance() {
+  //      return balance;
+  //  }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+  //  public void setBalance(double balance) {
+  //      this.balance = balance;
+ //   }
 }

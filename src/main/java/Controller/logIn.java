@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class logIn {
-    Database database = new Database();
+
     @FXML
     private Button SignInButton;
 
@@ -19,7 +19,7 @@ public class logIn {
 
     @FXML
     void SignInButton(ActionEvent event) {
-        database.connect();
+
     }
 
 }
