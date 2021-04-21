@@ -12,11 +12,11 @@ public class DAO {
 
 
 
-    private User retrieveUser(String query, String sSN) {
+    private User retrieveUser(String query, String sSN, String pass) {
         user = null;
         try {
             if (!Database.dbConnection.isClosed()) {
-                resultSet = retrieveSet(query, sSN);
+                resultSet = retrieveSet(query, sSN, pass);
                 if (resultSet != null) {
                     if (resultSet.first()) {
                         return user = createUserObject(resultSet);
@@ -40,11 +40,11 @@ public class DAO {
             return user;
         }
     }
-    public User getUser(String person_number) {
+    public User getUser(String person_number, String password) {
         User temp = null;
-        String query = "SELECT * FROM User where person_number = ?;";
+        String query = "SELECT * FROM User where person_number = ? and password = ?;";
         try {
-            temp = retrieveUser(query, person_number);
+            temp = retrieveUser(query, person_number, password);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

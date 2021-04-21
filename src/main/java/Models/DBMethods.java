@@ -3,8 +3,8 @@ package Models;
 public class DBMethods {
     DAO dao = new DAO();
 
-    public User getUser(String person_number) {
-       return dao.getUser(person_number);
+    public User getUser(String person_number, String password) {
+       return dao.getUser(person_number, password);
     }
 
    // public void updateAccountBalance(Account account){

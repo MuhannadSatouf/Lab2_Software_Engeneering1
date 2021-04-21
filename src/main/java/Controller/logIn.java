@@ -1,6 +1,8 @@
 package Controller;
 
+import Models.DBMethods;
 import Models.Database;
+import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,8 @@ public class logIn implements Initializable {
     PreparedStatement preparedStatement = null;
     Connection connection = null;
     ResultSet resultSet = null;
+    User currentUser;
+
     @FXML
     private Button SignInButton;
 
@@ -57,18 +61,14 @@ public class logIn implements Initializable {
         String person_number = userIdTextField.getText();
         String password = passwordTextField.getText();
 
-        String sql = "SELECT * FROM User Where person_number = ? and password = ?";
-
         try {
             if (!userIdTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
+                DBMethods dbMethods = new DBMethods();
+                currentUser = dbMethods.getUser(person_number, password);
 
-                preparedStatement = Database.getConnection().prepareStatement(sql);
-                preparedStatement.setInt(1, Integer.parseInt(person_number));
-                preparedStatement.setString(2, password);
-                resultSet = preparedStatement.executeQuery();
-
-                if (!resultSet.next()) {
+                if (currentUser == null) {
                     lbError.setText("Please Enter a valid User name and Password");
+                    database.disconnect();
                 } else {
                     alert("Login Successful", null, "Successful");
 
@@ -76,12 +76,13 @@ public class logIn implements Initializable {
                 }
             } else {
                 alert("Please fill all fields", null, "Error");
+                database.disconnect();
             }
 
-        } catch (SQLException throwables) {
+        } catch (Exception throwables) {
             throwables.printStackTrace();
         }
-        database.disconnect();
+
     }
 
 
