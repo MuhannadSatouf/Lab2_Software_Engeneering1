@@ -18,7 +18,7 @@ public class DAO {
             if (!Database.dbConnection.isClosed()) {
                 resultSet = retrieveSet(query, sSN, pass);
                 if (resultSet != null) {
-                    if (resultSet.first()) {
+                    if (resultSet.next()) {
                         return user = createUserObject(resultSet);
                     }
                 } else {
@@ -96,7 +96,7 @@ public class DAO {
             if (!Database.dbConnection.isClosed()) {
                 resultSet = retrieveSet(query, String.valueOf(account_number));
                 if (resultSet != null) {
-                    if (resultSet.first()) {
+                    if (resultSet.next()) {
                         return account = createAccountObject(resultSet);
                     }
                 } else {

@@ -88,7 +88,7 @@ public class logIn implements Initializable {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.setHeaderText(header);
-        alert.showAndWait();
+        alert.show();
     }
 
     void viewWindow(String location) {
