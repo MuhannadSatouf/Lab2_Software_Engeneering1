@@ -37,12 +37,4 @@ public class UserTest {
     @Test
     public void setAccount_number() {
     }
-
-    @Test
-    public void getBalance() {
-    }
-
-    @Test
-    public void setBalance() {
-    }
 }

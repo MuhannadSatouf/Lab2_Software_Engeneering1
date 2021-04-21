@@ -9,6 +9,7 @@ public class DAO {
     private User user;
     private String sSN;
     private String name;
+    private String password;
     private int account_number;
 
 
@@ -53,10 +54,12 @@ public class DAO {
     }
 
     private User createObjects(ResultSet resultSet) throws Exception {
-        sSN = resultSet.getString("ssn");
+        sSN = resultSet.getString("person_number");
         name = resultSet.getString("name");
         account_number = resultSet.getInt("account_number");
+        password = resultSet.getString("password");
         user = new User(sSN, name, account_number);
+        user.setPassword(password);
         return user;
     }
 
