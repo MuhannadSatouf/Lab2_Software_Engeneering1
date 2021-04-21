@@ -1,8 +1,8 @@
 package Models;
 
 public class Transaction {
-    double amount;
-    Account account;
+    private double amount;
+    private Account account;
 
     public Transaction(Account account){
         this.account = account;
@@ -22,5 +22,13 @@ public class Transaction {
             account.setAccount_balance(account.getAccount_balance() - amount);
             return true;
         } else return false;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }
