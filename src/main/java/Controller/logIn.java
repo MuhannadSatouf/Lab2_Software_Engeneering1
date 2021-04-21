@@ -3,10 +3,13 @@ package Controller;
 import Models.DBMethods;
 import Models.Database;
 import Models.User;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -43,7 +46,7 @@ public class logIn implements Initializable {
 
     @FXML
     void SignInButton(ActionEvent event) {
-        loginMethod();
+        loginMethod(event);
     }
 
 
@@ -53,7 +56,7 @@ public class logIn implements Initializable {
     }
 
 
-    public void loginMethod() {
+    public void loginMethod(ActionEvent event) {
 
         String person_number = userIdTextField.getText();
         String password = passwordTextField.getText();
@@ -69,8 +72,8 @@ public class logIn implements Initializable {
                         lbError.setText("Please Enter a valid User name and Password");
                         database.disconnect();
                     } else {
-                        alert(AlertType.CONFIRMATION, "Login Successful", null, "Successful");
-                        viewWindow("View/Main.fxml");
+                        //    alert(AlertType.CONFIRMATION, "Login Successful", null, "Successful"); not needed here
+                        viewWindow(event);
                     }
                 }
 
@@ -88,14 +91,15 @@ public class logIn implements Initializable {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.setHeaderText(header);
-        alert.show();
+        alert.showAndWait();
     }
 
-    void viewWindow(String location) {
+    void viewWindow(Event event) {
         try {
-            Parent parent1 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(location)));
-            Stage window = (Stage) SignInButton.getScene().getWindow();
+            Parent parent1 = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(new Scene(parent1));
+            window.show();
 
         } catch (IOException e) {
             e.printStackTrace();
