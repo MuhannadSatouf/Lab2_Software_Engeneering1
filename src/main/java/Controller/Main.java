@@ -1,5 +1,6 @@
 package Controller;
 
+import Models.DBMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Main implements Initializable {
+    DBMethods dbMethods = new DBMethods();
 
     @FXML
     private Button depositButton;
@@ -28,7 +30,7 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        dbMethods.getAccountBalance(123456);
     }
 
 

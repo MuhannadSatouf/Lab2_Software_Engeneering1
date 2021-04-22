@@ -10,8 +10,6 @@ public class DAO {
     private Account account;
     private double account_balance;
 
-
-
     private User retrieveUser(String query, String sSN) {
         user = null;
         try {
