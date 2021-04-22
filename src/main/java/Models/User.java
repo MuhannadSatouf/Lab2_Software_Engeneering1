@@ -6,6 +6,8 @@ public class User {
     private String password;
     private int account_number;
 
+    public User(){}
+
     public User(String person_number, String name, int account_number){
         setPerson_number(person_number);
         setName(name);

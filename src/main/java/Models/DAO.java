@@ -121,7 +121,7 @@ public class DAO {
     }
 
     private Account createAccountObject(ResultSet resultSet) throws Exception {
-        account.setAccount_balance(resultSet.getDouble("account_balance"));
+        account = new Account(resultSet.getInt(1), resultSet.getDouble(2));
         return account;
     }
 
@@ -153,13 +153,13 @@ public class DAO {
         try {
             if (!Database.dbConnection.isClosed()) {
                 if (transaction.getAmount() != 0) {
-                    String queryString = "INSERT INTO `Transaction` (`id`, `amount`, 'account_number') VALUES (?, ?, ?);";
+                    String queryString = "INSERT INTO `Transaction` (`amount`, `account_number`) VALUES (?, ?);";
                     PreparedStatement prepStmt = Database.getConnection().prepareStatement(queryString);
-                    prepStmt.setDouble(2, transaction.getAmount());
-                    prepStmt.setInt(3, transaction.getAccount().getAccount_number());
+                    prepStmt.setDouble(1, transaction.getAmount());
+                    prepStmt.setInt(2, transaction.getAccount().getAccount_number());
                     prepStmt.executeUpdate();
                     prepStmt.close();
-                    updateBalance(transaction.getAccount());   // pay attention to this method call - make sure not to call it twice
+                    updateBalance(transaction.getAccount());
                 }
             }
         } catch (SQLException ex) {

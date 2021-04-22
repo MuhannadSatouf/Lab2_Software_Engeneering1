@@ -3,6 +3,7 @@ package Controller;
 import Models.DBMethods;
 import Models.Database;
 import Models.User;
+import Models.UserSingleton;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -73,6 +74,7 @@ public class logIn implements Initializable {
                         database.disconnect();
                     } else {
                         //    alert(AlertType.CONFIRMATION, "Login Successful", null, "Successful"); not needed here
+                        UserSingleton.getInstance().setUser(currentUser);
                         viewWindow(event);
                     }
                 }
