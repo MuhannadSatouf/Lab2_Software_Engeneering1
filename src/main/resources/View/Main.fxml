@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Main">
+<GridPane alignment="center" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Main">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -22,8 +22,8 @@
             <Button fx:id="withdrawButton" layoutX="179.0" layoutY="139.0" mnemonicParsing="false" onAction="#withdrawButton" prefHeight="33.0" prefWidth="111.0" text="Withdraw 100 kr" />
             <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number" wrappingWidth="111.33333333333337" />
             <Text layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance" wrappingWidth="99.47008895874023" />
-            <TextField editable="false" layoutX="133.0" layoutY="70.0" promptText="Balance" />
-            <TextField editable="false" layoutX="133.0" layoutY="19.0" promptText="Account  number" />
+            <TextField fx:id="acc_balance" editable="false" layoutX="133.0" layoutY="70.0" promptText="Balance" />
+            <TextField fx:id="acc_number" editable="false" layoutX="133.0" layoutY="19.0" promptText="Account  number" />
          </children>
       </AnchorPane>
    </children>

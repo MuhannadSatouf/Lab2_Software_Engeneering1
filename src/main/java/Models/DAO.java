@@ -10,13 +10,16 @@ public class DAO {
     private Account account;
     private double account_balance;
 
-    private User retrieveUser(String query, String sSN) {
+
+
+    private User retrieveUser(String query, String sSN, String pass) {
+
         user = null;
         try {
             if (!Database.dbConnection.isClosed()) {
-                resultSet = retrieveSet(query, sSN);
+                resultSet = retrieveSet(query, sSN, pass);
                 if (resultSet != null) {
-                    if (resultSet.first()) {
+                    if (resultSet.next()) {
                         return user = createUserObject(resultSet);
                     }
                 } else {
@@ -38,11 +41,11 @@ public class DAO {
             return user;
         }
     }
-    public User getUser(String person_number) {
+    public User getUser(String person_number, String password) {
         User temp = null;
-        String query = "SELECT * FROM User where person_number = ?;";
+        String query = "SELECT * FROM User where person_number = ? and password = ?;";
         try {
-            temp = retrieveUser(query, person_number);
+            temp = retrieveUser(query, person_number, password);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -94,7 +97,7 @@ public class DAO {
             if (!Database.dbConnection.isClosed()) {
                 resultSet = retrieveSet(query, String.valueOf(account_number));
                 if (resultSet != null) {
-                    if (resultSet.first()) {
+                    if (resultSet.next()) {
                         return account = createAccountObject(resultSet);
                     }
                 } else {
@@ -119,7 +122,7 @@ public class DAO {
     }
 
     private Account createAccountObject(ResultSet resultSet) throws Exception {
-        account.setAccount_balance(resultSet.getDouble("account_balance"));
+        account = new Account(resultSet.getInt(1), resultSet.getDouble(2));
         return account;
     }
 
@@ -151,13 +154,13 @@ public class DAO {
         try {
             if (!Database.dbConnection.isClosed()) {
                 if (transaction.getAmount() != 0) {
-                    String queryString = "INSERT INTO `Transaction` (`id`, `amount`, 'account_number') VALUES (?, ?, ?);";
+                    String queryString = "INSERT INTO `Transaction` (`amount`, `account_number`) VALUES (?, ?);";
                     PreparedStatement prepStmt = Database.getConnection().prepareStatement(queryString);
-                    prepStmt.setDouble(2, transaction.getAmount());
-                    prepStmt.setInt(3, transaction.getAccount().getAccount_number());
+                    prepStmt.setDouble(1, transaction.getAmount());
+                    prepStmt.setInt(2, transaction.getAccount().getAccount_number());
                     prepStmt.executeUpdate();
                     prepStmt.close();
-                    updateBalance(transaction.getAccount());   // pay attention to this method call - make sure not to call it twice
+                    updateBalance(transaction.getAccount());
                 }
             }
         } catch (SQLException ex) {

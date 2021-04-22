@@ -1,10 +1,16 @@
 package Controller;
 
+import Models.DBMethods;
 import Models.Database;
+import Models.User;
+import Models.UserSingleton;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,7 +25,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -27,6 +32,8 @@ public class logIn implements Initializable {
     PreparedStatement preparedStatement = null;
     Connection connection = null;
     ResultSet resultSet = null;
+    User currentUser;
+
     @FXML
     private Button SignInButton;
 
@@ -39,7 +46,7 @@ public class logIn implements Initializable {
 
     @FXML
     void SignInButton(ActionEvent event) {
-        loginMethod();
+        loginMethod(event);
     }
 
 
@@ -49,52 +56,51 @@ public class logIn implements Initializable {
     }
 
 
-    public void loginMethod() {
-        Database database = new Database();
-        Database.getInstance();
+    public void loginMethod(ActionEvent event) {
+
         String person_number = userIdTextField.getText();
         String password = passwordTextField.getText();
 
-        String sql = "SELECT * FROM User Where person_number = ? and password = ?";
-
         try {
             if (!userIdTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
+                Database database = Database.getInstance();
+                if (database.isConnected()) {
+                    DBMethods dbMethods = new DBMethods();
+                    currentUser = dbMethods.getUser(person_number, password);
 
-                preparedStatement = Database.getConnection().prepareStatement(sql);
-                preparedStatement.setInt(1, Integer.parseInt(person_number));
-                preparedStatement.setString(2, password);
-                resultSet = preparedStatement.executeQuery();
-
-                if (!resultSet.next()) {
-                    lbError.setText("Please Enter a valid User name and Password");
-                } else {
-                    alert("Login Successful", null, "Successful");
-
-                    viewWindow("/View/Main.fxml");
+                    if (currentUser == null) {
+                        lbError.setText("Please Enter a valid User name and Password");
+                        database.disconnect();
+                    } else {
+                        //    alert(AlertType.CONFIRMATION, "Login Successful", null, "Successful"); not needed here
+                        UserSingleton.getInstance().setUser(currentUser);
+                        viewWindow(event);
+                    }
                 }
+
             } else {
-                alert("Please fill all fields", null, "Error");
+                alert(AlertType.WARNING, "Please fill all fields", null, "Error");
             }
 
-        } catch (SQLException throwables) {
+        } catch (Exception throwables) {
             throwables.printStackTrace();
         }
-        database.disconnect();
     }
 
 
-    private void alert(String message, String header, String title) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
+    private void alert(AlertType alertType, String message, String header, String title) {
+        Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.setHeaderText(header);
         alert.showAndWait();
     }
 
-    void viewWindow(String location) {
+    void viewWindow(Event event) {
         try {
-            Parent parent1 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(location)));
-            Stage window = (Stage) SignInButton.getScene().getWindow();
+            Parent parent1 = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(new Scene(parent1));
+            window.show();
 
         } catch (IOException e) {
             e.printStackTrace();
