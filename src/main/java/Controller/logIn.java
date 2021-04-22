@@ -4,7 +4,6 @@ import Models.DBMethods;
 import Models.Database;
 import Models.User;
 import Models.UserSingleton;
-import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -25,7 +24,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class logIn implements Initializable {
