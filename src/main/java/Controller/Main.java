@@ -33,8 +33,10 @@ public class Main implements Initializable {
 
     @FXML
     void withdrawButton(ActionEvent event) {
-        // this i left for you to continue :) not much difference from deposit.
-        // you do NOT need to set amount with minus - will be done by  transaction.withdrawal method
+        Transaction transaction = new Transaction(account);
+        transaction.withdraw(100);
+        dbMethods.addTransaction(transaction);
+        acc_balance.setText(String.valueOf(account.getAccount_balance()));
     }
 
     @Override

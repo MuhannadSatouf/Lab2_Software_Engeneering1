@@ -16,7 +16,7 @@ public class Transaction {
         } else return false;
     }
 
-    public boolean withdraw(){
+    public boolean withdraw(double amount){
         if(account.getAccount_balance() >= amount) {
             this.amount = -amount;
             account.setAccount_balance(account.getAccount_balance() - amount);
