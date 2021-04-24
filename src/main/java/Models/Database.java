@@ -30,6 +30,7 @@ public class Database {
                 alert.showAndWait();
                 e.getSuppressed();
                 connected = false;
+                return null;                 
             }
         }
 

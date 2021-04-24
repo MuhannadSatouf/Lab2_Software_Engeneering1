@@ -57,7 +57,6 @@ public class logIn implements Initializable {
 
                     if (currentUser == null) {
                         lbError.setText("Please Enter a valid User name and Password");
-                        database.disconnect();
                     } else {
                         UserSingleton.getInstance().setUser(currentUser);
                         viewWindow(event);
