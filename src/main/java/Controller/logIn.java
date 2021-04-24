@@ -51,6 +51,7 @@ public class logIn implements Initializable {
         try {
             if (!userIdTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
                 Database database = Database.getInstance();
+                assert database != null;
                 if (database.isConnected()) {
                     DBMethods dbMethods = new DBMethods();
                     currentUser = dbMethods.getUser(person_number, password);
