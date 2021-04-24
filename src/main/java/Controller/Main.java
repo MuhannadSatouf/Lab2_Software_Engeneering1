@@ -41,7 +41,8 @@ public class Main implements Initializable {
         Transaction transaction = new Transaction(account);
         if (!transaction.withdraw(100)){
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Balance is not enough to make a withdrawal");
+            alert.setContentText("Balance is not enough to make a withdrawal");
+            alert.setHeaderText(null);
             alert.showAndWait();
         }
         dbMethods.addTransaction(transaction);
