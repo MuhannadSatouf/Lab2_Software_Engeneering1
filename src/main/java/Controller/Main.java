@@ -6,6 +6,7 @@ import Models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -22,6 +23,9 @@ public class Main implements Initializable {
 
     @FXML
     private TextField acc_balance;
+
+    @FXML
+    private Label lb_hello;
 
     @FXML
     void depositButton(ActionEvent event) {
@@ -43,6 +47,7 @@ public class Main implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         acc_balance.setText(String.valueOf(account.getAccount_balance()));
         acc_number.setText(String.valueOf(account.getAccount_number()));
+        lb_hello.setText("Welcome, " + currentUser.getName());
 
     }
 
