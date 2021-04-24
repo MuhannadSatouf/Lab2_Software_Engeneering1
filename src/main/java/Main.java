@@ -1,11 +1,9 @@
-import Models.DBMethods;
 import Models.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.Objects;
 
 public class Main extends Application {
@@ -24,11 +22,12 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        if(Database.getInstance() != null)
-            Database.getInstance().disconnect();
-        try {
-        } catch (Exception exception){
-            exception.getSuppressed();
+        if(Database.getInstance() != null) {
+            try {
+                Database.getInstance().disconnect();
+            } catch (Exception exception) {
+                exception.getSuppressed();
+            }
         }
         super.stop();
     }

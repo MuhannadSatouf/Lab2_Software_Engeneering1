@@ -2,18 +2,17 @@ package Models;
 
 public class Transaction {
     private double amount;
-    private Account account;
+    private final Account account;
 
     public Transaction(Account account){
         this.account = account;
     }
 
-    public boolean deposit(double amount){
+    public void deposit(double amount){
         if (amount > 0) {
             this.amount = amount;
             account.setAccount_balance(account.getAccount_balance() + amount);
-            return true;
-        } else return false;
+        }
     }
 
     public boolean withdraw(double amount){

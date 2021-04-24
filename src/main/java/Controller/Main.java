@@ -6,6 +6,7 @@ import Models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -38,7 +39,11 @@ public class Main implements Initializable {
     @FXML
     void withdrawButton(ActionEvent event) {
         Transaction transaction = new Transaction(account);
-        transaction.withdraw(100);
+        if (!transaction.withdraw(100)){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Balance is not enough to make a withdrawal");
+            alert.showAndWait();
+        }
         dbMethods.addTransaction(transaction);
         acc_balance.setText(String.valueOf(account.getAccount_balance()));
     }

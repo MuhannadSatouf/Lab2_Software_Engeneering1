@@ -8,8 +8,6 @@ public class DAO {
     private ResultSet resultSet = null;
     private User user;
     private Account account;
-    private double account_balance;
-
 
 
     private User retrieveUser(String query, String sSN, String pass) {
@@ -130,7 +128,7 @@ public class DAO {
         try {
             if (!Database.dbConnection.isClosed()) {
                 if (account != null) {
-                    account_balance = account.getAccount_balance();
+                    double account_balance = account.getAccount_balance();
                     String query = "UPDATE `Account` SET `account_balance` = ? WHERE (`id` = ?);";
                     PreparedStatement prepStmt = Database.getConnection().prepareStatement(query);
                     prepStmt.setDouble(1, account_balance);

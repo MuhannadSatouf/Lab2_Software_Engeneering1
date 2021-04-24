@@ -14,26 +14,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class logIn implements Initializable {
-    PreparedStatement preparedStatement = null;
-    Connection connection = null;
-    ResultSet resultSet = null;
     User currentUser;
-
-    @FXML
-    private Button SignInButton;
 
     @FXML
     private Label lbError;
@@ -70,14 +59,13 @@ public class logIn implements Initializable {
                         lbError.setText("Please Enter a valid User name and Password");
                         database.disconnect();
                     } else {
-                        //    alert(AlertType.CONFIRMATION, "Login Successful", null, "Successful"); not needed here
                         UserSingleton.getInstance().setUser(currentUser);
                         viewWindow(event);
                     }
                 }
 
             } else {
-                alert(AlertType.WARNING, "Please fill all fields", null, "Error");
+                alert(AlertType.WARNING, "Please fill in all fields", null);
             }
 
         } catch (Exception throwables) {
@@ -86,7 +74,7 @@ public class logIn implements Initializable {
     }
 
 
-    private void alert(AlertType alertType, String message, String header, String title) {
+    private void alert(AlertType alertType, String message, String header) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.setHeaderText(header);

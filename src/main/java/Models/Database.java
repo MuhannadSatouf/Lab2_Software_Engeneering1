@@ -1,7 +1,6 @@
 package Models;
 
 import javafx.scene.control.Alert;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,10 +16,6 @@ public class Database {
     private static boolean connected;
     private Statement statement;
     private ResultSet resultSet;
-
-    public Database() {
-
-    }
 
     public static Database getInstance() {
         if (myDBConnection == null) {
