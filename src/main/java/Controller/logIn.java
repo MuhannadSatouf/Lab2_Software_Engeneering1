@@ -32,7 +32,7 @@ public class logIn implements Initializable {
 
 
     @FXML
-    void SignInButton(ActionEvent event) {
+    private void signInButton(ActionEvent event) {
         loginMethod(event);
     }
 
@@ -43,7 +43,7 @@ public class logIn implements Initializable {
     }
 
 
-    public void loginMethod(ActionEvent event) {
+    private void loginMethod(ActionEvent event) {
 
         String person_number = userIdTextField.getText();
         String password = passwordTextField.getText();
@@ -81,7 +81,7 @@ public class logIn implements Initializable {
         alert.showAndWait();
     }
 
-    void viewWindow(Event event) {
+    private void viewWindow(Event event) {
         try {
             Parent parent1 = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

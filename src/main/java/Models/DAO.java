@@ -60,7 +60,7 @@ public class DAO {
         return user;
     }
 
-    protected ResultSet retrieveSet(String queryString, String... params) {
+    private ResultSet retrieveSet(String queryString, String... params) {
         try {
             if (!Database.dbConnection.isClosed()) {
                 PreparedStatement prepStmt = Database.getConnection().prepareStatement(queryString);

@@ -29,7 +29,7 @@ public class Main implements Initializable {
     private Label lb_hello;
 
     @FXML
-    void depositButton(ActionEvent event) {
+    private void depositButton(ActionEvent event) {
         Transaction transaction = new Transaction(account);
         transaction.deposit(100);
         dbMethods.addTransaction(transaction);
@@ -37,7 +37,7 @@ public class Main implements Initializable {
     }
 
     @FXML
-    void withdrawButton(ActionEvent event) {
+    private void withdrawButton(ActionEvent event) {
         Transaction transaction = new Transaction(account);
         if (!transaction.withdraw(100)){
             Alert alert = new Alert(Alert.AlertType.WARNING);

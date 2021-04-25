@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.logIn">
    <children>
-      <Button fx:id="SignInButton" layoutX="246.0" layoutY="270.0" mnemonicParsing="false" onAction="#SignInButton" prefHeight="42.0" prefWidth="107.0" text="Sign in" />
+      <Button fx:id="signInButton" layoutX="246.0" layoutY="270.0" mnemonicParsing="false" onAction="#signInButton" prefHeight="42.0" prefWidth="107.0" text="Sign in" />
       <TextField fx:id="userIdTextField" layoutX="143.0" layoutY="128.0" prefHeight="25.0" prefWidth="287.0" promptText="User Name" />
       <TextField fx:id="passwordTextField" layoutX="143.0" layoutY="187.0" prefHeight="25.0" prefWidth="287.0" promptText="Password" />
       <Text layoutX="92.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLease enter your password and username to log in ">

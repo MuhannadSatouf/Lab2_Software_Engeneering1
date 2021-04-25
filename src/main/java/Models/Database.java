@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.sql.*;
 
 public class Database {
-    public static String url = "jdbc:mysql://ro03.beginit.se:23306/project01?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC";
-    public static String username = "stud";
-    public static String password = "studentRemote!";
+    private static final String url = "jdbc:mysql://ro03.beginit.se:23306/project01?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC";
+    private static final String username = "stud";
+    private static final String password = "studentRemote!";
     public static Connection dbConnection;
     private static Database myDBConnection;
     private static boolean connected;
@@ -30,7 +30,7 @@ public class Database {
                 alert.showAndWait();
                 e.getSuppressed();
                 connected = false;
-                return null;                 
+                return null;
             }
         }
 
